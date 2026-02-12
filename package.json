@@ -29,6 +29,8 @@
     "@angular/forms": "^21.1.0",
     "@angular/platform-browser": "^21.1.0",
     "@angular/router": "^21.1.0",
+    "@camos/cds": "^1.0.16",
+    "@camos/cds-angular": "^1.0.16",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0"
   },

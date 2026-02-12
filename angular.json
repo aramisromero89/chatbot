@@ -21,11 +21,14 @@
             "assets": [
               {
                 "glob": "**/*",
-                "input": "public"
+                "input": "node_modules/@camos/cds/dist/components/assets",
+                "output": "/assets/"
               }
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.css",
+              "node_modules/@camos/cds/dist/camos-cds/camos-cds.css",
+              "node_modules/@camos/cds/dist/components/assets/css/camos-cds-fonts.css"
             ]
           },
           "configurations": {
