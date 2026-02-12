@@ -1,0 +1,25 @@
+<div class="chatbox" aria-label="Chat">
+  <ol #messagesList class="messages" aria-label="Messages">
+    @for (message of messages(); track message.id) {
+      <li class="message" [attr.data-role]="message.role">
+        <p class="content">{{ message.content }}</p>
+      </li>
+    } @empty {
+      <li class="empty" aria-live="polite">No messages yet.</li>
+    }
+  </ol>
+  <form class="composer" (ngSubmit)="send()" aria-label="Message composer">
+    <label class="sr-only" for="chat-message">Message</label>
+    <textarea
+      id="chat-message"
+      class="input"
+      rows="2"
+      [formControl]="messageControl"
+      (keydown.enter)="send()"
+      [attr.aria-invalid]="
+        messageControl.invalid && (messageControl.dirty || messageControl.touched)
+      "
+    ></textarea>
+    <cds-button type="submit" [disabled]="messageControl.invalid || isSending()">Send</cds-button>
+  </form>
+</div>

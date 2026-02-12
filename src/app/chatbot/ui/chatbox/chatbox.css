@@ -1,0 +1,66 @@
+.chatbox {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	min-height: 0;
+	gap: 16px;
+}
+
+.messages {
+	flex: 1;
+	min-height: 0;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+	overflow: auto;
+}
+
+.message {
+	display: flex;
+}
+
+.message[data-role='user'] {
+	justify-content: flex-end;
+}
+
+.content {
+	margin: 0;
+	padding: 12px 14px;
+	max-width: 70ch;
+	border-radius: 12px;
+	border: 1px solid currentColor;
+}
+
+.composer {
+	display: flex;
+	gap: 12px;
+	align-items: flex-end;
+}
+
+.input {
+	flex: 1;
+	padding: 10px 12px;
+	border-radius: 8px;
+	border: 1px solid currentColor;
+	font: inherit;
+	resize: vertical;
+}
+
+.sr-only {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border: 0;
+}
+
+.empty {
+	margin: 0;
+}
