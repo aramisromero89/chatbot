@@ -1,17 +1,38 @@
 <div class="main-container">
-  <div #chatbox>
+  <div #chatbox class="chatbox">
+    <div style="flex: 1"></div>
     @for (message of messages(); track message.id) {
-    <div class="message" [attr.data-role]="message.role">
-      <p class="content">{{ message.content }}</p>
-    </div>
-    } @empty {
-    <div class="empty">No messages yet.</div>
+      <div class="message" [attr.data-role]="message.role" animate.enter="enter-animation">
+        <div class="content">
+          <div>{{ message.content }}</div>
+
+          @if (message.role === 'user') {
+            <cds-icon color="white" name="{{ iconByState(message.state) }}" size="24px" />
+          }
+        </div>
+      </div>
     }
   </div>
   <form class="composer" (ngSubmit)="send()">
-    <label class="sr-only" for="chat-message">Message</label>
-    <textarea id="chat-message" class="message-input" rows="2" [formControl]="messageControl"
-      (keydown.enter)="send()"></textarea>
-    <cds-button (click)="send()" type="submit" [disabled]="messageControl.invalid">Send</cds-button>
+    <cds-icon-button class="attachment-button">
+      <cds-icon class="send-button-icon" name="cds_attachment" />
+    </cds-icon-button>
+    <textarea
+      #messageInput
+      class="message-input"
+      rows="1"
+      [formControl]="messageControl"
+      (input)="autoResize()"
+      (keydown.enter)="$event.preventDefault(); send()"
+    ></textarea>
+
+    <cds-icon-button class="send-button"
+      (click)="send()"
+      (keydown.enter)="send()"
+      type="submit"
+      [disabled]="messageControl.invalid"
+    >
+      <cds-icon name="cds_forward" />
+    </cds-icon-button>
   </form>
 </div>

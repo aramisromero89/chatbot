@@ -4,8 +4,8 @@ import { ChatMessage } from "../../model/chat-message";
 import { rxMethod } from "@ngrx/signals/rxjs-interop";
 import { ChatApiService } from "../../services/chat-store.service";
 import { inject } from "@angular/core";
-import { pipe, tap } from "rxjs";
-import { switchMap } from "rxjs/operators";
+import { pipe } from "rxjs";
+import { mergeMap } from "rxjs/operators";
 import { tapResponse } from "@ngrx/operators";
 
 const chatEntityConfig = entityConfig({
@@ -19,7 +19,7 @@ export const ChatStore = signalStore(
     withMethods((store, api = inject(ChatApiService)
     ) => ({
         sendMessage: rxMethod<{ message: string }>(pipe(
-            switchMap((params) => {
+            mergeMap((params) => {
                 const message: ChatMessage = {
                     id: crypto.randomUUID(),
                     role: 'user',
