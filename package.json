@@ -31,6 +31,8 @@
     "@angular/router": "^21.1.0",
     "@camos/cds": "^1.0.16",
     "@camos/cds-angular": "^1.0.16",
+    "@ngrx/operators": "^21.0.1",
+    "@ngrx/signals": "^21.0.1",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0"
   },
@@ -38,6 +40,7 @@
     "@angular/build": "^21.1.4",
     "@angular/cli": "^21.1.4",
     "@angular/compiler-cli": "^21.1.0",
+    "@ngrx/signals": "^21.0.1",
     "jsdom": "^27.1.0",
     "typescript": "~5.9.2",
     "vitest": "^4.0.8"

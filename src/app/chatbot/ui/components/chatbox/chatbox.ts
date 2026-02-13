@@ -13,8 +13,8 @@ import {
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ComponentLibraryModule } from '@camos/cds-angular';
 
-import { ChatMessage } from '../../model/chat-message';
-import { ChatStoreService } from '../../services/chat-store.service';
+import { ChatMessage } from '../../../model/chat-message';
+import { ChatStore } from '../../state/chat.store';
 
 @Component({
 	selector: 'app-chatbox',
@@ -23,25 +23,24 @@ import { ChatStoreService } from '../../services/chat-store.service';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	schemas: [CUSTOM_ELEMENTS_SCHEMA],
 	imports: [ReactiveFormsModule, ComponentLibraryModule],
+	providers: [ChatStore]
 })
 export class ChatboxComponent {
-	private readonly chatStore = inject(ChatStoreService);
-	private readonly messagesList = viewChild<ElementRef<HTMLOListElement>>('messagesList');
+	private readonly chatStore = inject(ChatStore);
+	private readonly messagesList = viewChild<ElementRef>('chatbox');
 
-	readonly messages = computed<ChatMessage[]>(() => this.chatStore.messages());
+	readonly messages = computed<ChatMessage[]>(() => this.chatStore.chatMessageEntities());
 
 	readonly messageControl = new FormControl('', {
 		nonNullable: true,
 		validators: [Validators.required, Validators.maxLength(2000)],
 	});
 
-	readonly isSending = signal(false);
-
 	constructor() {
 		effect(() => {
 			const messageCount = this.messages().length;
 			if (messageCount >= 0) {
-				afterNextRender(() => this.scrollToBottom());
+				this.scrollToBottom();
 			}
 		});
 	}
@@ -60,12 +59,9 @@ export class ChatboxComponent {
 			return;
 		}
 
-		this.isSending.set(true);
-		try {
-			this.chatStore.addUserMessage(value);
-			this.messageControl.setValue('');
-		} finally {
-			this.isSending.set(false);
-		}
+
+		this.chatStore.sendMessage({ message: value });
+		this.messageControl.setValue('');
+
 	}
 }

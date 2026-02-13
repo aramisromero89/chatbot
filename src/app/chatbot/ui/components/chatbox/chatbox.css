@@ -1,0 +1,26 @@
+:host {
+  display: flex;
+  width: 100%;
+}
+.main-container{
+	display: flex;
+	flex-direction: column;
+	flex: 1
+}
+
+#chatbox{
+	flex: 1;
+}
+.message{
+	display: flex;
+	flex-direction: row;
+}
+
+.message[data-role='user'] {
+	justify-content: flex-end;
+}
+
+.message[data-role='assistant'] {
+	justify-content: flex-start;
+}
+

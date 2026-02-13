@@ -1,0 +1,17 @@
+<div class="main-container">
+  <div #chatbox>
+    @for (message of messages(); track message.id) {
+    <div class="message" [attr.data-role]="message.role">
+      <p class="content">{{ message.content }}</p>
+    </div>
+    } @empty {
+    <div class="empty">No messages yet.</div>
+    }
+  </div>
+  <form class="composer" (ngSubmit)="send()">
+    <label class="sr-only" for="chat-message">Message</label>
+    <textarea id="chat-message" class="message-input" rows="2" [formControl]="messageControl"
+      (keydown.enter)="send()"></textarea>
+    <cds-button (click)="send()" type="submit" [disabled]="messageControl.invalid">Send</cds-button>
+  </form>
+</div>
